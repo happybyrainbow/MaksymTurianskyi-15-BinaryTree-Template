@@ -3,6 +3,7 @@ package Control;
 import Model.BinaryTree;
 import View.DrawingPanel;
 import View.TreeView.TreeNode;
+import View.TreeView.TreePath;
 
 /**
  * Created by Jean-Pierre on 12.01.2017.
@@ -26,6 +27,12 @@ public class MainController {
 
         binaryTree.setLeftTree(left);
         binaryTree.setRightTree(right);
+
+        left.setLeftTree(new BinaryTree<>("I",new BinaryTree<>("S", new BinaryTree<>("H"), new BinaryTree<>("V")), new BinaryTree<>("U", new BinaryTree<>("F"), new BinaryTree<>("Ü"))));
+        left.setRightTree(new BinaryTree<>("A",new BinaryTree<>("L", new BinaryTree<>("Ä"), new BinaryTree<>("V")), new BinaryTree<>("W", new BinaryTree<>("P"), new BinaryTree<>("J"))));
+
+        right.setLeftTree(new BinaryTree<>("N",new BinaryTree<>("D", new BinaryTree<>("B"), new BinaryTree<>("X")), new BinaryTree<>("K", new BinaryTree<>("C"), new BinaryTree<>("Y"))));
+        right.setRightTree(new BinaryTree<>("M",new BinaryTree<>("G", new BinaryTree<>("Z"), new BinaryTree<>("Q")), new BinaryTree<>("O", new BinaryTree<>("Ö"), new BinaryTree<>("CH"))));
     }
 
     /**
@@ -60,7 +67,19 @@ public class MainController {
             TreeNode node = new TreeNode(startX, startY, 10, tree.getContent().toString(), false);
             panel.addObject(node);
         }
-		
+        //bearbeite linken Teilbaum, falls dieser nicht leer ist
+        if(!tree.getLeftTree().isEmpty()){
+            TreePath path = new TreePath(startX,startY+10*2, startX-(spaceToTheSide/1.5),startY+60-10*2,0,false);
+            panel.addObject(path);
+            showTree(tree.getLeftTree(), panel, startX - (spaceToTheSide / 1.5), startY + 60, spaceToTheSide / 2);
+        }
+        //bearbeite rechten Teilbaum, falls dieser nicht leer ist
+        //TODO 03: Lasse auch den rechten Teilbaum zeichnen
+        if(!tree.getRightTree().isEmpty()){
+            TreePath path = new TreePath(startX,startY+10*2, startX+(spaceToTheSide/1.5),startY+60-10*2,0,false);
+            panel.addObject(path);
+            showTree(tree.getRightTree(), panel, startX + (spaceToTheSide / 1.5), startY + 60, spaceToTheSide / 2);
+        }
 		
 		
     }
