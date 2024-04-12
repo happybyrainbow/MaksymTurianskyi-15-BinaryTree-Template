@@ -15,6 +15,7 @@ public class MainController {
     public MainController(){
         binaryTree = new BinaryTree<>(""); // Ein Baum ohne Wurzel-Inhalt ist auf dauer ein leerer Baum - es lassen sich laut Dokumentation nichtmal Bäume anhängen. Also wird die Wurzel gefüllt.
         createMorseTree();
+        System.out.println(countNodes(binaryTree));
     }
 
     /**
@@ -80,8 +81,8 @@ public class MainController {
             panel.addObject(path);
             showTree(tree.getRightTree(), panel, startX + (spaceToTheSide / 1.5), startY + 60, spaceToTheSide / 2);
         }
-		
-		
+
+
     }
 
     /**
@@ -95,14 +96,23 @@ public class MainController {
 
     /**
      * Interne hilfsmethode zur Traversierung.
-     * @param tree Der zu traversierende Binärbaum.
+     * @param binaryTree Der zu traversierende Binärbaum.
      * @return Das Ergebnis der Traversierung als Zeichenkette.
      */
-    private String traverse(BinaryTree tree){
+    private String traverse(BinaryTree<String> binaryTree){
         //TODO 04: Nachdem wir geklärt haben, was eine Traversierung ist, muss diese Methode noch vervollständigt werden. Sollte ein Kinderspiel sein.
-        return "Traverse? Wat dat denn?";
+        String output = "";
+        if(!binaryTree.isEmpty()){
+            output += binaryTree.getContent();
+        }
+        if(!binaryTree.getLeftTree().isEmpty()) {
+            output += traverse(binaryTree.getLeftTree());
+        }
+        if(!binaryTree.getRightTree().isEmpty()) {
+            output += traverse(binaryTree.getRightTree());
+        }
+        return output;
     }
-	
     /**
      * Interne Übungsmethode zur Traversierung.
      * @param tree Der zu traversierende Binärbaum.
@@ -110,6 +120,15 @@ public class MainController {
      */
     private int countNodes(BinaryTree tree){
         //TODO 05: Übungsmethode
-	return 0;
+        int count = 0;
+        if(!binaryTree.getLeftTree().isEmpty()) {
+            count+=1;
+            traverse(binaryTree.getLeftTree());
+        }
+        if(!binaryTree.getRightTree().isEmpty()) {
+            count+=1;
+            traverse(binaryTree.getRightTree());
+        }
+        return count;
     }
 }
