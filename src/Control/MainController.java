@@ -120,14 +120,12 @@ public class MainController {
      */
     private int countNodes(BinaryTree tree){
         //TODO 05: Übungsmethode
-        int count = 0;
-        if(!binaryTree.getLeftTree().isEmpty()) {
-            count+=1;
-            traverse(binaryTree.getLeftTree());
+        int count = 1;
+        if(!tree.getLeftTree().isEmpty()) {
+            count+=countNodes(tree.getLeftTree());
         }
-        if(!binaryTree.getRightTree().isEmpty()) {
-            count+=1;
-            traverse(binaryTree.getRightTree());
+        if(!tree.getRightTree().isEmpty()) {
+            count+=countNodes(tree.getRightTree());
         }
         return count;
     }
